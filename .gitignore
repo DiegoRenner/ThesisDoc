@@ -6,6 +6,7 @@
 *.log
 *.out
 Thesis.pdf
+Thesis_*.pdf
 *.synctex.gz
 *.toc
 *.blg
