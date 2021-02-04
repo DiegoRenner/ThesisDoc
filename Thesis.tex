@@ -1460,42 +1460,32 @@ The Scattering Transmission Problem was computed with the inner and outer refrac
 The boundary $\Omega$ was set to be a circle of radius $r=0.25$.
 
 Using arpackpp's default parameters (random starting vector, accuracy of $10^{-16}$) the results computed by Arnoldi are indistinguishable from the ones computed using Eigen's direct solver.
-At the same time the Arnoldi algorithm often grants a substantial speedup as can be seen in \ref{fig:arnoldi_time_1e-16_2} on the next page.
+At the same time the Arnoldi algorithm often grants a substantial speedup as can be seen in \ref{fig:arnoldi_time_1e-16} on the next page.
 It also can be seen that the behaviour of the speedup strongly depends on how many singular values were requested and what the value of $k$ is.
 
 In general of course more requested singular values mean the difference between the direct and the Arnoldi method diminishes.
 There are also more subtle effects such as spikes in the execution time of the Arnoldi algorithm.
-It can be seen in \ref{fig:arnoldi_time_1e-16_2} that the higher execution times at the spikes stem from the algorithm taking more iterations to converge.
+It can be seen in \ref{fig:arnoldi_time_1e-16} that the higher execution times at the spikes stem from the algorithm taking more iterations to converge.
 This in turn comes from the singular values being close to each other in absolute value.
 It causes the most problems when requesting few singular values since then in the event of crossings only one of the two close values is requested and the algorithm takes longer to separate the requested one from the unwanted one.
 It seems to also happens more closely to $k=0$ since here all eigenvalues are bunched.
 The cases where this becomes a problem can be seen well when requesting 16 or 32 singular values where the execution time of the Arnoldi algorithm can even become longer than that of the direct solver.
 \begin{figure} [H]
 	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arnoldi_time_1e-16_1.eps}
-	\label{fig:arnoldi_time_1e-16_1}
-\end{figure}
-\begin{figure} [H]
-	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arnoldi_time_1e-16_2.eps}
+	\includegraphics[width=\columnwidth]{figures/arnoldi_time_1e-16.pdf}
 	\caption{
 		The best speedup of about 15 occurs when requesting 2 singular values corresponding to 4 eigenvalues of the Wielandt matrix. 
 		Here the cost of the extra $(matrix\times vector)$ products is less than what is gained through reducing the spikes that occur due to the bunching of the singular values.
 	}
-	\label{fig:arnoldi_time_1e-16_2}
+	\label{fig:arnoldi_time_1e-16}
 \end{figure}
 \begin{figure} [H]
 	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arnoldi_iter_1e-16_1.eps}
-	\label{fig:arnoldi_iter_1e-16_1}
-\end{figure}
-\begin{figure} [H]
-	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arnoldi_iter_1e-16_2.eps}
+	\includegraphics[width=\columnwidth]{figures/arnoldi_iter_1e-16.pdf}
 	\caption{
 		The iterations are proportional to the execution time and the number of $(matrix\times vector)$ products is proportional to the $\#restarts \times \#singularvalues$.
 	}
-	\label{fig:arnoldi_iter_1e-16_2}
+	\label{fig:arnoldi_iter_1e-16}
 \end{figure}
 
 \section{Reduced Accuracy for Better Speedup}
@@ -1528,36 +1518,26 @@ Depending on how precisely we need to know these roots it can however still be w
 
 \section{Spikes and Speedups with Lower Accuracy}
 Since we saw that the execution time of the Arnoldi algorithm was directly related to the number of iterations taken until convergence was reached and since we also saw that we could reduce the necessary number of iterations by reducing the accuracy with which the singular values were computed, we reran the test from section \ref{sec:first_results} with an accuracy of $10^0$.
-The results can be seen in \ref{fig:arnoldi_time_1e2_2} and \ref{fig:arnoldi_iter_1e2_2}.
+The results can be seen in \ref{fig:arnoldi_time_1e2} and \ref{fig:arnoldi_iter_1e2}.
 A this accuracy the Arnoldi algorithm as implemented by arpackpp basically does not do a convergence check anymore and therefore always ends without doing any restarts.
 This means there is no possibility of spikes occurring and the speedup increases heavily.
 
 \begin{figure} [H]
 	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arnoldi_time_1e2_1.eps}
-	\label{fig:arnoldi_time_1e2_1}
-\end{figure}
-\begin{figure} [H]
-	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arnoldi_time_1e2_2.eps}
+	\includegraphics[width=\columnwidth]{figures/arnoldi_time_1e2.pdf}
 	\caption{
 		Without spikes the intuition of having the fastest execution time when requesting the fewest singular values becomes correct.
 		This lead to having the highest speedup of about 100 fold for 1 requested eigenvalue when using the Arnoldi algorithm instead of the direct solver.
 	}
-	\label{fig:arnoldi_time_1e2_2}
+	\label{fig:arnoldi_time_1e2}
 \end{figure}
 \begin{figure} [H]
 	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arnoldi_iter_1e2_1.eps}
-	\label{fig:arnoldi_iter_1e2_1}
-\end{figure}
-\begin{figure} [H]
-	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arnoldi_iter_1e2_2.eps}
+	\includegraphics[width=\columnwidth]{figures/arnoldi_iter_1e2.pdf}
 	\caption{
 		Only one restart is done each time the Arnoldi algorithm is executed and the number of $(matrix\times vector)$ products is therefore proportional to the $\#singularvalues$.
 	}
-	\label{fig:arnoldi_iter_1e2_2}
+	\label{fig:arnoldi_iter_1e2}
 \end{figure}
 
 \end{document}
