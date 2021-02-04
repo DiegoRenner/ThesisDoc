@@ -5,7 +5,8 @@
 *.fls
 *.log
 *.out
-*.pdf
+Thesis.pdf
 *.synctex.gz
 *.toc
-figures/*.pdf
+*.blg
+figures/*eps-converted-to.pdf

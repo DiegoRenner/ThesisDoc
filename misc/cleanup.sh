@@ -13,4 +13,4 @@ rm $git_dir/Thesis.out
 rm $git_dir/Thesis.pdf
 rm $git_dir/Thesis.synctex.gz
 rm $git_dir/Thesis.toc
-rm $git_dir/figures/*.pdf
+rm $git_dir/figures/*eps-converted-to.pdf
