@@ -6,7 +6,10 @@
 *.log
 *.out
 Thesis.pdf
+<<<<<<< HEAD
 Thesis_*.pdf
+=======
+>>>>>>> f12cfab9916296aaad08eb08cc60ad8a0f1c771a
 *.synctex.gz
 *.toc
 *.blg
